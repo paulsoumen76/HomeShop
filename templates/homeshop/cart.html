@@ -67,46 +67,37 @@
   	}
 
 </style>
-<body><br><br><br><br>
-<table class="table table-secondary">
-  <thead>
-    <tr>
-      <th scope="col">Products</th>
-      <th scope="col">Product's Image</th>
-      <th scope="col">Qty</th>
-      <th scope="col">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td scope="row">1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
 
-  </tbody>
-</table>
+<body><br><br><br><br>
+<div class="container">
+  <ul>
+    <div  id = 'image' class="">
+    </div>
+    <li id='mob-name'></li>
+    <li id='mob-qty'>1</li>
+    <li id='mob-cost'></li>
+  </ul>
+</div>
 </body>
 <script>
 if (localStorage.getItem("cart") == null) {
   var cart = {};
-  document.getElementById('lblCartCount').innerHTML = ' ';
 }
 else{
   cart = JSON.parse(localStorage.getItem("cart"));
   document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
 }
-$ ('.cart-icon').click(function(){
-   var idstr = this.id.toString();
-   if(cart[idstr] != undefined){
-     cart[idstr] = cart[idstr] + 1;
-   }
-   else{
-     cart[idstr] = 1;
-   }
-   localStorage.setItem('cart', JSON.stringify(cart));
-   document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
-});
+function showCartItems(cart){
+  for (item in cart){
+     document.getElementById('mob-name').append(cart[item][1]);
+     document.getElementById('mob-cost').append(cart[item][2]);
+     let getImage = cart[item][3];
+     var image = new Image(100,220);
+     image.src = getImage;
+     document.getElementById('image').append(image);
+
+  }
+}
+showCartItems(cart);
 </script>
 {%endblock%}
