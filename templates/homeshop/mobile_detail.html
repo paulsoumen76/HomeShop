@@ -1,0 +1,12 @@
+{%extends "homeshop/base.html"%}
+{%block body_block%}
+<br>
+<br>
+<br>
+<div class="container-fluid" align=center border=3px solid pink>
+    <h1>Product description for {{mobile.mobile_name}}</h1>
+    <img width="300px" height="500px" top='5px' src="/media/{{mobile.mobile_img}}" alt="">
+    <p><b>{{mobile.mobile_desc}}</b></p>
+    <h2>Price:{{mobile.mobile_cost}}</h2>
+</div>
+{%endblock%}
