@@ -1,83 +1,84 @@
 {%extends "homeshop/base.html"%}
 {%block body_block%}
-<style media="screen">
-  body{
-    align:center;
-  	margin-left:250px;
-  	padding:20px;
-  	font-family: sans-serif;
+<head>
+  <style media="screen">
+
+    .products-container{
+      max-width:650px;
+      justify-content: space-around;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+    .product-header{
+      width:100%;
+      max-width: 650px;
+      display: flex;
+      justify-content: flex-start;
+      boerder-bottom: 1px solid lightblue;
+      margin: 0 auto;
+      border-bottom: 4px solid lightblue;
+    }
+    .product-title{
+      width:45%;
+    }
+    .price{
+      width: 15%;
+      display:flex
+      align-items:center;
+    }
+    .quantity{
+      width: 30%;
+      display:flex;
+      align-items:center;
+    }
+    .total{
+      width: 10%;
+      display:flex;
+
+      align-items:center;
+    }
+
+    .product{
+      width:45%;
+      justify-content:space around;
+      display: flex;
+      align-items: center;
+      padding:10px 0;
+      border-bottom:1px solid lightblue;
+      align:center;
+    }
+   img{
+     width:60px;
+     height:100px;
+   }
+   img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
   }
 
-  *{
-  	box-sizing: border-box;
+  img:hover {
+   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
   }
+  </style>
 
-  .table{
-    align:center;
-  	width: 75%;
-  	border-collapse: collapse;
-  }
+</head>
+<body><br><br><br><br><br><br>
+<div class="products-container">
+  <div class="jumbotron" align = center backgroud-color='blue'>
+    <h5><i class="fas fa-cart-plus"></i> Shopping Cart</h5>
+  </div>
+  <div class="product-header">
+    <h6 class='product-title'>Product</h6>
+    <h6 class='price'>Price</h6>
+    <h6 class='quantity'>Qty</h6>
+    <h6 class='total'>Total</h6>
+  </div>
+  <div class="products">
 
-  .table td,.table th{
-    padding:12px 15px;
-    border:1px solid #ddd;
-    text-align: center;
-    font-size:16px;
-    align:center;
-  }
-
-  .table th{
-  	background-color: darkblue;
-  	color:#ffffff;
-  }
-
-  .table tbody tr:nth-child(even){
-  	background-color: #f5f5f5;
-  }
-
-  /*responsive*/
-
-  @media(max-width: 500px){
-  	.table thead{
-  		display: none;
-  	}
-
-  	.table, .table tbody, .table tr, .table td{
-  		display: block;
-  		width: 100%;
-  	}
-  	.table tr{
-  		margin-bottom:15px;
-  	}
-  	.table td{
-  		text-align: right;
-  		padding-left: 50%;
-  		text-align: right;
-  		position: relative;
-  	}
-  	.table td::before{
-  		content: attr(data-label);
-  		position: absolute;
-  		left:0;
-  		width: 50%;
-  		padding-left:50px;
-  		font-size:15px;
-  		font-weight: bold;
-  		text-align: left;
-  	}
-
-</style>
-
-<body><br><br><br><br>
-<div class="container">
-  <ul>
-    <div  id = 'image' class="">
-    </div>
-    <li id='mob-name'></li>
-    <li id='mob-qty'>1</li>
-    <li id='mob-cost'></li>
-  </ul>
+  </div>
 </div>
+
 </body>
 <script>
 if (localStorage.getItem("cart") == null) {
@@ -88,16 +89,36 @@ else{
   document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
 }
 function showCartItems(cart){
-  for (item in cart){
-     document.getElementById('mob-name').append(cart[item][1]);
-     document.getElementById('mob-cost').append(cart[item][2]);
-     let getImage = cart[item][3];
-     var image = new Image(100,220);
-     image.src = getImage;
-     document.getElementById('image').append(image);
+  console.log(cart);
+  let products = document.querySelector(".products");
+    if(cart && products){
+    products.innerHTML = '';
+    for(item in cart){
+      let getImage = cart[item][3];
+      var image = getImage.substring(41);
+      products.innerHTML += `<div class="product">
+                              <i class="fas fa-trash"></i>&nbsp&nbsp&nbsp
+                              <img src="/media/mobile_image/${image}" alt="">&nbsp&nbsp&nbsp
+                              <span>${cart[item][1]}</span>
 
+                            </div>
+                            <div class="price">
+                              ${cart[item][2]}
+                            </div>
+                            <div class="quantity">
+                              <h6>1</h6>
+                            </div>
+                            <div class="total">
+                               ${cart[item][2]}
+                            </div>`
+
+
+
+
+    }
   }
 }
-showCartItems(cart);
+showCartItems(cart)
+
 </script>
 {%endblock%}
