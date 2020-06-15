@@ -3,7 +3,7 @@
 <head>
   <style media="screen">
 
-    .products-container{
+    /* .products-container{
       max-width:650px;
       justify-content: space-around;
       margin: 0 auto;
@@ -18,19 +18,8 @@
       margin: 0 auto;
       border-bottom: 4px solid lightblue;
     }
-    .product-title{
-      width:45%;
-    }
-    .price{
-      width: 15%;
-      display:flex
-      align-items:center;
-    }
-    .quantity{
-      width: 30%;
-      display:flex;
-      align-items:center;
-    }
+
+    thead
     .total{
       width: 10%;
       display:flex;
@@ -46,7 +35,7 @@
       padding:10px 0;
       border-bottom:1px solid lightblue;
       align:center;
-    }
+    } */
    img{
      width:60px;
      height:100px;
@@ -60,24 +49,97 @@
   img:hover {
    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
   }
+
+  .product-title{
+    width:10%;
+  }
+  .price{
+    width: 10%;
+    display:flex
+    align-items:center;
+  }
+  .quantity{
+    width:10%;
+    display:flex
+    align-items:center;
+  }
+  .clear{
+    width: 10%;
+    display:flex;
+    align-items:center;
+  }
+  .image{
+    width: 10%;
+    display:flex
+    align-items:center;
+  }
+  .total{
+    width:30%;
+    display:flex;
+    align-items:center;
+  }
+  table{
+    width:100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto;
+    margin-left:450px;
+    border-bottom: 4px solid lightblue;
+    align:center;
+  }
+  td{
+    width:150px;
+    height:100px;
+  }
+  .container{
+    width:100%;
+    max-width: 480px;
+    margin-left:450px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid lightblue;
+    margin: 0 auto;
+    align:center;
+  }
+  #sub{
+    width:20%;
+    margin:0 auto;
+    border-bottom: 1px solid lightblue;
+  }
+ #order{
+   max-width:300px;
+   max-height:50px;
+   margin-left:950px;
+ }
+ .main-container{
+ }
+
+
+
   </style>
 
 </head>
-<body><br><br><br><br><br><br>
-<div class="products-container">
-  <div class="jumbotron" align = center backgroud-color='blue'>
-    <h5><i class="fas fa-cart-plus"></i> Shopping Cart</h5>
-  </div>
-  <div class="product-header">
-    <h6 class='product-title'>Product</h6>
-    <h6 class='price'>Price</h6>
-    <h6 class='quantity'>Qty</h6>
-    <h6 class='total'>Total</h6>
-  </div>
-  <div class="products">
+<body><br><br><br><br><br>
+  <div class="main-container">
+    <h5 align='center' id='header'><i class="fas fa-cart-plus" ></i> Your Shopping Cart</h5>
+    <h5><a id='order' class='btn btn-warning btn-lg' href="#">Place Order</a></h5><br>
 
+    <table class="table table-striped" align='center'>
+      <thead align='center'>
+        <th class='clear'>Clear</th>
+        <th class='image'>Image</th>
+        <th class='product-title'>Product</th>
+        <th class='price'>Price</th>
+        <th class='quantity'>Qty</th>
+        <th class='total'>Total</th>
+      </thead>
+    </table>
+    <div class="container">
+      <h5 id='sub'>Sub Total</h5>&nbsp&nbsp&nbsp
+      <h5 id='total-price'>Price</h5>
+    </div>
   </div>
-</div>
 
 </body>
 <script>
@@ -86,39 +148,89 @@ if (localStorage.getItem("cart") == null) {
 }
 else{
   cart = JSON.parse(localStorage.getItem("cart"));
-  document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
 }
 function showCartItems(cart){
   console.log(cart);
-  let products = document.querySelector(".products");
-    if(cart && products){
-    products.innerHTML = '';
     for(item in cart){
+      var table = document.getElementsByTagName('table')[0];
+      var newRow = table.insertRow(table.rows.length);
+      var cel1 = newRow.insertCell(0);
+      var cel2 = newRow.insertCell(1);
+      var cel3 = newRow.insertCell(2);
+      var cel4 = newRow.insertCell(3);
+      var cel5 = newRow.insertCell(4);
+      var cel6 = newRow.insertCell(5);
       let getImage = cart[item][3];
       var image = getImage.substring(41);
-      products.innerHTML += `<div class="product">
-                              <i class="fas fa-trash"></i>&nbsp&nbsp&nbsp
-                              <img src="/media/mobile_image/${image}" alt="">&nbsp&nbsp&nbsp
-                              <span>${cart[item][1]}</span>
+      var name = cart[item][1];
+      var price = cart[item][2];
+      var cost = parseInt(price);
+      cel1.innerHTML = `<span id='clear${item}'><i class="fas fa-trash"></i></span>`
+      cel2.innerHTML = `<img src="/media/mobile_image/${image}" alt="">`
+      cel3.innerHTML = name;
+      cel4.innerHTML = `<span id='price${item}'><i class="fas fa-rupee-sign"></i>${price}</span>`;
+      cel5.innerHTML = `<span id="add${item}"><i class="fas fa-plus-circle"></i></span>
+                        <span id="qty${item}" class="badge badge-primary"> </span>
+                        <span id = "remove${item}"><i class="fas fa-minus-circle"></i></span>`
 
-                            </div>
-                            <div class="price">
-                              ${cart[item][2]}
-                            </div>
-                            <div class="quantity">
-                              <h6>1</h6>
-                            </div>
-                            <div class="total">
-                               ${cart[item][2]}
-                            </div>`
+      cel6.innerHTML = `<span id='cost${item}'><i class="fas fa-rupee-sign"></i>${price}</span>`;
+
+  }
+};
+showCartItems(cart);
 
 
 
+for(item in cart){
+  $("#add"+item).on('click',function addItem(){
+    var id = this.id.slice(3);
+    var price = parseInt(cart[id][2]);
+    var qty = cart[id][0];
+    cart[id][0] = cart[id][0] + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart(cart);
+  });
+};
 
-    }
+for(item in cart){
+  $("#remove"+item).on('click',function removeItem(){
+    var id = this.id.slice(6);
+    console.log(cart[id][0]);
+    console.log(id)
+    var price = parseInt(cart[id][2]);
+    var qty = cart[id][0];
+    cart[id][0] = cart[id][0] - 1;
+    cart[id][0] = Math.max(1,cart[id][0]);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    cart = JSON.parse(localStorage.getItem('cart'));
+    displayCart(cart);
+  });
+};
+function displayCart(cart){
+  var sub_total = 0
+  for(item in cart){
+    var price = cart[item][2];
+    var qty = cart[item][0];
+    sub_total = sub_total + (price*qty);
+    console.log(sub_total);
+    document.getElementById('qty' + item).innerHTML = cart[item][0];
+    document.getElementById('cost' + item).innerHTML = `<i class="fas fa-rupee-sign"></i>&nbsp&nbsp${price*qty},00`
+    document.getElementById('total-price').innerHTML = `<i class="fas fa-rupee-sign"></i>&nbsp&nbsp${sub_total},00`;
   }
 }
-showCartItems(cart)
+displayCart(cart);
+
+for(item in cart){
+  $("#clear"+item).on('click',function clearItem(){
+    var id = this.id.slice(5);
+    delete cart[id];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.location.reload();
+  });
+};
+displayCart(cart);
+
+
 
 </script>
 {%endblock%}
