@@ -1,0 +1,10 @@
+{%extends "homeshop/base.html"%}
+{%block body_block%}
+<br><br><br>
+<h3>New Registration</h3>
+<form class="" align = 'center' method="post">
+  {{form.as_p}}
+  {%csrf_token%}
+  <input type="submit" name="submit" value="submit">
+</form>
+{%endblock%}

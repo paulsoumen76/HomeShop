@@ -120,10 +120,10 @@
   </style>
 
 </head>
-<body><br><br><br><br><br>
-  <div class="main-container">
+<body ><br><br><br><br><br>
+  <div id='newcart' class="main-container">
     <h5 align='center' id='header'><i class="fas fa-cart-plus" ></i> Your Shopping Cart</h5>
-    <h5><a id='order' class='btn btn-warning btn-lg' href="#">Place Order</a></h5><br>
+    <h5><a id='order' class='btn btn-warning btn-lg' href="/checkout">Place Order</a></h5><br>
 
     <table class="table table-striped" align='center'>
       <thead align='center'>
@@ -149,6 +149,12 @@ if (localStorage.getItem("cart") == null) {
 else{
   cart = JSON.parse(localStorage.getItem("cart"));
 }
+if(Object.keys(cart).length == 0){
+     var newcart=document.getElementById('newcart')
+     newcart.innerHTML='<h1>your cart is empty</h1>'
+     newcart.style.color='red';
+     newcart.style.textAlign = "center";
+   }
 function showCartItems(cart){
   console.log(cart);
     for(item in cart){
@@ -228,7 +234,6 @@ for(item in cart){
     window.location.reload();
   });
 };
-displayCart(cart);
 
 
 

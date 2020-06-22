@@ -1,0 +1,47 @@
+{%extends "homeshop/base.html"%}
+{%block body_block%}<br><br><br>
+<div class="container" align='center' >
+  <form class="" id="newform" method="post">{%csrf_token%}
+    <div class="">
+      <label for="">Name</label>
+      <input type="text" name="name" value="" id='name'>
+    </div>
+    <div class="">
+      <label for="">Email</label>
+      <input type="text" name="email" value="" id='email'>
+    </div>
+    <div class="">
+      <label for="">Meassage</label>
+      <input type="text" name="message" value="" id='message'>
+    </div>
+    <div class="">
+      <button type="submit" name="button">Submit</button>
+    </div>
+  </form>
+</div>
+<script>
+  console.log('working')
+ $(document).on('submit','#newform',function(e){
+
+   e.preventdefault();
+   $.ajax({
+     type:'POST',
+     url:'/contact/',
+     data:{
+       name:$('#name').val(),
+       email:$('#email').val(),
+       message:$('#message').val(),
+       csrfmiddlewaretoken:('input[name]=csrfmiddlewaretoken').val(),
+     },
+     success: function(data)
+     {
+       console.log('working fine');
+     }
+   })
+ })
+
+
+
+</script>
+
+{%endblock%}

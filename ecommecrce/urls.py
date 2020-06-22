@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
 from homeshop import views
 from django.conf.urls.static import static
@@ -24,4 +24,13 @@ urlpatterns = [
     url(r'^mobiles/', views.mobile_view),
     url(r'^(?P<id>\d+)/$', views.mobile_detail_view),
     url(r'^cart/', views.cart_view),
+    url(r'^signup/', views.signup_view),
+    url(r'^accounts/', include("django.contrib.auth.urls")),
+    url(r'^checkout/', views.placeorder_view),
+    url(r'^paytm/', views.payment_handler , name='paytm'),
+    url(r'^contact/', views.saved_contact_view , name='contact'),
+    # url(r'^success/', views.success_view,name='success'),
+    # url(r'^failure/', views.failure,name='failure'),
+
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

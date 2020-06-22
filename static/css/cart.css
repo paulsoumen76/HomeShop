@@ -1,20 +1,18 @@
-.badge {
-  padding-left: 9px;
-  padding-right: 9px;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  border-radius: 9px;
-}
 
-.label-warning[href],
-.badge-warning[href] {
-  background-color: #c67605;
+
+.products-container{
+  max-width:650px;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-top: 50px;
 }
-#lblCartCount {
-    font-size: 12px;
-    background: #ff0000;
-    color: #fff;
-    padding: 0 5px;
-    vertical-align: top;
-    margin-left: -10px;
+.product-header{
+  width:100%;
+  max-width: 650px;
+  display: flex;
+  justify-content: flex-start;
+  boerder-bottom: 4px solid lightblue;
+  margin: 0 auto;
+
+
 }
