@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, render_to_response
-from .models import MobileTable, OrderTable,OrderUpdate,ContactDetails
+from .models import *
 from django.views.generic import DetailView
 from django.template.loader import get_template
 from .forms import SignUpForm
@@ -11,17 +11,94 @@ import hashlib
 from random import randint
 from django.template.context_processors import csrf
 from paytm import checksum
+from random import choice
 Merchant_key = "qxCJW5Ii7YyCawX%"
+
 
 # Create your views here.
 def home_view(request):
-    return render(request, 'homeshop/home.html')
+    mobiles=MobileTable.objects.all()[:3]
+    laptops=LaptopTable.objects.all()[:3]
+    speakers=SpeakerTable.objects.all()[:3]
+    menjeans=MenJeansTable.objects.all()[:3]
+    menshirts=MenShirtTable.objects.all()[:3]
+    mentshirts=MenTshirtTable.objects.all()[:3]
+    womenjeans=WomenJeansTable.objects.all()[:3]
+    womentshirts=WomenTshirtTable.objects.all()[:3]
+    womenkurtas=WomenKurtaTable.objects.all()[:3]
+    dict={'mobiles':mobiles,'laptops':laptops,'speakers':speakers}
+    return render(request, 'homeshop/home.html',context=dict)
 
 
 def mobile_view(request):
     mobiles = MobileTable.objects.all()
     return render(request, 'homeshop/mobiles.html', {'mobiles': mobiles})
 
+def search_view(request):
+    q=request.GET.get('search')
+    mobiles=MobileTable.objects.filter(mobile_name__icontains=q)
+    laptops=LaptopTable.objects.filter(laptop_name__icontains=q)
+    speakers=SpeakerTable.objects.filter(speaker_name__icontains=q)
+    menjeans=MenJeansTable.objects.filter(men_jeans_name__icontains=q)
+    menshirts=MenShirtTable.objects.filter(men_shirt_name__icontains=q)
+    mentshirts=MenTshirtTable.objects.filter(men_tshirt_name__icontains=q)
+    womenjeans=WomenJeansTable.objects.filter(women_jeans_name__icontains=q)
+    womentshirts=WomenTshirtTable.objects.filter(women_tshirt_name__icontains=q)
+    womenkurtas=WomenKurtaTable.objects.filter(women_kurta_name__icontains=q)
+    if mobiles:
+        return render(request, 'homeshop/mobiles.html', {'mobiles': mobiles})
+    if laptops:
+        return render(request, 'homeshop/laptop.html', {'laptops':laptops})
+    if speakers:
+        return render(request, 'homeshop/speaker.html', {'speakers':speakers})
+    if menjeans:
+        return render(request, 'homeshop/menjeans.html', {'menjeans':menjeans})
+    if menshirts:
+        return render(request, 'homeshop/menshirt.html', {'menshirts':menshirts})
+    if mentshirts:
+        return render(request, 'homeshop/mentshirt.html', {'mentshirts':mentshirts})
+    if womenjeans:
+        return render(request, 'homeshop/womenjeans.html', {'womenjeans':womenjeans})
+    if womenkurtas:
+        return render(request, 'homeshop/womenkurta.html', {'womenkurtas':womenkurtas})
+    if womentshirts:
+        return render(request, 'homeshop/womentshirt.html', {'womentshirts':womentshirts})
+
+    else:
+        return HttpResponse('<h1>Product is not found</h1>')
+
+
+
+def laptop_view(request):
+    laptops = LaptopTable.objects.all()
+    return render(request, 'homeshop/laptop.html', {'laptops':laptops})
+def speaker_view(request):
+    speakers = SpeakerTable.objects.all()
+    return render(request, 'homeshop/speaker.html', {'speakers':speakers})
+
+def menjeans_view(request):
+    menjeans = MenJeansTable.objects.all()
+    return render(request, 'homeshop/menjeans.html', {'menjeans':menjeans})
+
+def menshirt_view(request):
+    menshirts = MenShirtTable.objects.all()
+    return render(request, 'homeshop/menshirt.html', {'menshirts':menshirts})
+
+def mentshirt_view(request):
+    mentshirts = MenTshirtTable.objects.all()
+    return render(request, 'homeshop/mentshirt.html', {'mentshirts':mentshirts})
+
+def womenjeans_view(request):
+    womenjeans = WomenJeansTable.objects.all()
+    return render(request, 'homeshop/womenjeans.html', {'womenjeans':womenjeans})
+
+def womenkurta_view(request):
+    womenkurtas= WomenKurtaTable.objects.all()
+    return render(request, 'homeshop/womenkurta.html', {'womenkurtas':womenkurtas})
+
+def womentshirt_view(request):
+    womentshirts = WomenTshirtTable.objects.all()
+    return render(request, 'homeshop/womentshirt.html', {'womentshirts':womentshirts})
 
 def mobile_detail_view(request, id):
     mobile = MobileTable.objects.get(id=id)

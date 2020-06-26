@@ -1,0 +1,60 @@
+{%extends "homeshop/base.html"%}
+{%block body_block%}
+<body>
+
+
+  <br>
+  <br>
+  <div class="container">
+    <h1>Speakers</h1>
+      <div class="row">
+        {%for speaker in speakers%}
+        <div class='col-sm-4'><br><br>
+           <div class="card" style="width: 18rem;" >
+              <img class="card-img-top" id=imagespeaker{{speaker.id}} src="/media/{{speaker.speaker_img}}" alt="Card image cap">
+              <div class="card-body">
+                 <h5 class="card-title speaker-name" id="namespeaker{{speaker.id}}">{{speaker.speaker_name}}</h5>
+                 <h3><a href="/{{speaker.id}}" class='btn btn-info btn-sm' >Product Details</a></h3>
+                 <h3 class='btn btn-light btn-sm speaker-cost' id="pricespeaker{{speaker.id}}" ><i class="fas fa-rupee-sign"></i> {{speaker.speaker_cost}} </h3>
+                 <h4>
+                   <button id="speaker{{speaker.id}}" class="btn btn-dark btn-sm cart"><i class="fas fa-cart-plus"></i> Add to Cart </button>&nbsp&nbsp
+                   <a id ='discard{{speaker.id}}' href='#'><strong></strong></a>
+                 </h4>
+             </div>
+           </div>
+        </div>
+          {%endfor%}
+      </div>
+
+  </div>
+</body>
+<script>
+if (localStorage.getItem("cart") == null ) {
+  var cart = {};
+
+}
+else{
+  cart = JSON.parse(localStorage.getItem("cart"));
+  if(Object.keys(cart).length==0){
+    document.getElementById('lblCartCount').innerHTML= '';
+  }else{
+    document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
+  }
+}
+$ ('.cart').click(function(){
+   var idstr = this.id.toString();
+     qty = 1;
+     var speaker_image = 'speaker_image';
+     name = document.getElementById('name' + idstr).innerHTML;
+     price = document.getElementById('price' + idstr).innerText;
+     image = document.getElementById('image' + idstr).src;
+     document.getElementById(idstr).innerText = 'Added to cart'
+     console.log('working')
+     var x = document.getElementById(idstr);
+     cart[idstr] = [qty,name,price,image,speaker_image];
+
+   localStorage.setItem('cart', JSON.stringify(cart));
+   document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
+});
+</script>
+{%endblock%}

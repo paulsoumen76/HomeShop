@@ -120,7 +120,6 @@
   </style>
 
 </head>
-<!-- <h1>dfdfdfdf</h1> -->
 <body ><br><br><br><br><br>
   <div id='newcart' class="main-container">
     <h5 align='center' id='header'><i class="fas fa-cart-plus" ></i> Your Shopping Cart</h5>
@@ -171,9 +170,10 @@ function showCartItems(cart){
       var image = getImage.substring(41);
       var name = cart[item][1];
       var price = cart[item][2];
+      var imagefolder = cart[item][4]
       var cost = parseInt(price);
       cel1.innerHTML = `<span id='clear${item}'><i class="fas fa-trash"></i></span>`
-      cel2.innerHTML = `<img src="/media/mobile_image/${image}" alt="">`
+      cel2.innerHTML = `<img src="/media/${imagefolder}/${image}" alt="">`
       cel3.innerHTML = name;
       cel4.innerHTML = `<span id='price${item}'><i class="fas fa-rupee-sign"></i>${price}</span>`;
       cel5.innerHTML = `<span id="add${item}"><i class="fas fa-plus-circle"></i></span>

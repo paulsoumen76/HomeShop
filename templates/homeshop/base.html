@@ -40,7 +40,7 @@
   </head>
 <body>
   <nav id='navbar' class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/contact">HomeShop</a>
+    <a class="navbar-brand" href="#">HomeShop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -60,9 +60,9 @@
             Electronics
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Laptops</a>
+            <a class="dropdown-item" href="/laptops">Laptops</a>
             <a class="dropdown-item" href="/mobiles">Mobiles</a>
-            <a class="dropdown-item" href="#">Speakers</a>
+            <a class="dropdown-item" href="/speakers">Speakers</a>
           </div>
         </li>
 
@@ -71,9 +71,9 @@
             Men's Fashion
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Shirt</a>
-            <a class="dropdown-item" href="#">Jeans</a>
-            <a class="dropdown-item" href="#">T-shirt</a>
+            <a class="dropdown-item" href="/menshirts">Shirt</a>
+            <a class="dropdown-item" href="/menjeans">Jeans</a>
+            <a class="dropdown-item" href="/mentshirts">T-shirt</a>
           </div>
         </li>
 
@@ -82,14 +82,14 @@
             Women's Fashion
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Kurta</a>
-            <a class="dropdown-item" href="#">Jeans</a>
-            <a class="dropdown-item" href="#">T-shirt</a>
+            <a class="dropdown-item" href="/womenkurtas">Kurta</a>
+            <a class="dropdown-item" href="/womenjeans">Jeans</a>
+            <a class="dropdown-item" href="/womentshirts">T-shirt</a>
           </div>
         </li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
-        <form class="form-inline" action="#">
-          <input class="form-control mr-sm-2" type="text" value="Search">
+        <form class="form-inline" action="/search" method="GET">
+          <input class="form-control mr-sm-2" type="search" name='search' placeholder='search with product name'>
           <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
         </form>
 
@@ -99,7 +99,7 @@
         <li><a class='btn btn-outline-light btn-sm cart-icon' href="/cart"><i class="fas fa-cart-plus"></i><span class='badge badge-warning' id='lblCartCount'></span> cart</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <li><a class='btn btn-outline-light btn-sm' href="/accounts/login"><i class="fas fa-user"></i> Login</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <li><a class='btn btn-outline-light btn-sm' data-toggle="tooltip" title="New user? plz register"
-          href="#"><i class="fas fa-user-plus"></i> SignUp</a></li>
+          href="/signup"><i class="fas fa-user-plus"></i> SignUp</a></li>
       </ul>
 
 

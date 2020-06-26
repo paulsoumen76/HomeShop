@@ -1,0 +1,60 @@
+{%extends "homeshop/base.html"%}
+{%block body_block%}
+<body>
+
+
+  <br>
+  <br>
+  <div class="container">
+    <h1>Women Kurtas</h1>
+      <div class="row">
+        {%for kurta in womenkurtas%}
+        <div class='col-sm-4'><br><br>
+           <div class="card" style="width: 18rem;" >
+              <img class="card-img-top" id=imagewomenkurta{{kurta.id}} src="/media/{{kurta.women_kurta_img}}" alt="Card image cap">
+              <div class="card-body">
+                 <h5 class="card-title womenkurta-name" id="namewomenkurta{{kurta.id}}">{{kurta.women_kurta_name}}</h5>
+                 <h3><a href="/{{kurta.id}}" class='btn btn-info btn-sm' >Product Details</a></h3>
+                 <h3 class='btn btn-light btn-sm kurta-cost' id="pricewomenkurta{{kurta.id}}" ><i class="fas fa-rupee-sign"></i> {{kurta.women_kurta_cost}} </h3>
+                 <h4>
+                   <button id="womenkurta{{kurta.id}}" class="btn btn-dark btn-sm cart"><i class="fas fa-cart-plus"></i> Add to Cart </button>&nbsp&nbsp
+                   <a id ='discard{{kurta.id}}' href='#'><strong></strong></a>
+                 </h4>
+             </div>
+           </div>
+        </div>
+          {%endfor%}
+      </div>
+
+  </div>
+</body>
+<script>
+if (localStorage.getItem("cart") == null ) {
+  var cart = {};
+
+}
+else{
+  cart = JSON.parse(localStorage.getItem("cart"));
+  if(Object.keys(cart).length==0){
+    document.getElementById('lblCartCount').innerHTML= '';
+  }else{
+    document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
+  }
+}
+$ ('.cart').click(function(){
+   var idstr = this.id.toString();
+     qty = 1;
+     var womenkurta_image = 'wometa_image';
+     name = document.getElementById('name' + idstr).innerHTML;
+     price = document.getElementById('price' + idstr).innerText;
+     image = document.getElementById('image' + idstr).src;
+     document.getElementById(idstr).innerText = 'Added to cart'
+     console.log('working')
+     var x = document.getElementById(idstr);
+     cart[idstr] = [qty,name,price,image,womenkurta_image];
+
+   localStorage.setItem('cart', JSON.stringify(cart));
+   document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
+});
+</script>
+{%endblock%}

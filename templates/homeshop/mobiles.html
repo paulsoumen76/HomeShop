@@ -6,6 +6,7 @@
   <br>
   <br>
   <div class="container">
+    <h1>Mobiles</h1>
       <div class="row">
         {%for mobile in mobiles%}
         <div class='col-sm-4'><br><br>
@@ -42,19 +43,16 @@ else{
 }
 $ ('.cart').click(function(){
    var idstr = this.id.toString();
-   if(cart[idstr] != undefined){
-      qty = cart[idstr][0] + 1
-   }
-   else{
      qty = 1;
+     var mobile_image = 'mobile_image';
      name = document.getElementById('name' + idstr).innerHTML;
      price = document.getElementById('price' + idstr).innerText;
      image = document.getElementById('image' + idstr).src;
      document.getElementById(idstr).innerText = 'Added to cart'
      console.log('working')
      var x = document.getElementById(idstr);
-     cart[idstr] = [qty,name,price,image];
-   }
+     cart[idstr] = [qty,name,price,image,mobile_image];
+
    localStorage.setItem('cart', JSON.stringify(cart));
    document.getElementById('lblCartCount').innerHTML = Object.keys(cart).length;
 });
