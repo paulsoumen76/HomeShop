@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^about/', views.about_us),
     url(r'^$', views.home_view),
     url(r'^mobiles/', views.mobile_view),
     url(r'^laptops/', views.laptop_view),
@@ -36,6 +37,7 @@ urlpatterns = [
     url(r'^signup/', views.signup_view),
     url(r'^accounts/', include("django.contrib.auth.urls")),
     url(r'^checkout/', views.placeorder_view),
+    url(r'^get-pdf/', views.getpdfpage),
     url(r'^paytm/', views.payment_handler , name='paytm'),
     url(r'^contact/', views.saved_contact_view , name='contact'),
     # url(r'^success/', views.success_view,name='success'),

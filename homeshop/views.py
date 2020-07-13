@@ -8,10 +8,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import datetime
 import hashlib
+import io
 from random import randint
 from django.template.context_processors import csrf
 from paytm import checksum
 from random import choice
+from xhtml2pdf import pisa
 Merchant_key = "qxCJW5Ii7YyCawX%"
 
 
@@ -26,9 +28,11 @@ def home_view(request):
     womenjeans=WomenJeansTable.objects.all()[:3]
     womentshirts=WomenTshirtTable.objects.all()[:3]
     womenkurtas=WomenKurtaTable.objects.all()[:3]
-    dict={'mobiles':mobiles,'laptops':laptops,'speakers':speakers}
+    dict={'mobiles':mobiles,'laptops':laptops,'speakers':speakers,'menjeans':menjeans,'menshirts':menshirts,
+    'mentshirts':mentshirts,'womenjeans':womenjeans,'womentshirts':womentshirts,'womenkurtas':womenkurtas}
     return render(request, 'homeshop/home.html',context=dict)
-
+def about_us(request):
+    return render(request,'homeshop/about.html')
 
 def mobile_view(request):
     mobiles = MobileTable.objects.all()
@@ -172,6 +176,7 @@ def placeorder_view(request):
 @csrf_exempt
 def payment_handler(request):
     form = request.POST
+    global response_dict
     response_dict={}
     for i in form.keys():
         response_dict[i] = form[i]
@@ -195,3 +200,13 @@ def saved_contact_view(request):
         new_contact.save()
         # return redirect('/')
     return render(request,'homeshop/contact.html')
+def getpdfpage(request):
+    context = response_dict
+    template = get_template("success.html")
+    data = template.render(context)
+    response = io.BytesIO()
+    pdfpage = pisa.pisaDocument(io.BytesIO(data.encode("UTF-8")),response)
+    if not pdfpage.err:
+        return HttpResponse(response.getvalue(),content_type = "application/pdf")
+    else:
+        return HttpResponse("error generated pdf")
